@@ -1,12 +1,33 @@
-import { foo, wait } from '../src'
+import { SingleCacheManager } from '../src'
+import { init } from '@cloudbase/node-sdk'
+import { config } from 'dotenv'
 
-describe('[Default]', () => {
-  test('foo should be bar', () => {
-    expect(foo).toBe('bar')
-  })
+config()
 
-  test('wait 100ms', async () => {
-    const flag = await wait(100)
-    expect(flag).toBe(true)
+describe('SingleCacheManager', () => {
+  test('Test ENV', async () => {
+    const { secretId, secretKey, env, appid, secret } = process.env
+    expect(secretId).toBeTruthy()
+    expect(secretKey).toBeTruthy()
+    expect(env).toBeTruthy()
+    expect(appid).toBeTruthy()
+    expect(secret).toBeTruthy()
+
+    const app = init({
+      secretId,
+      secretKey,
+      env
+    })
+    const db = app.database()
+    const manager = new SingleCacheManager({
+      appid: appid as string,
+      db,
+      secret: secret as string
+    })
+    const token = await manager.getAccessToken()
+    expect(token).toBeTruthy()
+
+    const token2 = await manager.getAccessToken()
+    expect(token).toBe(token2)
   })
 })

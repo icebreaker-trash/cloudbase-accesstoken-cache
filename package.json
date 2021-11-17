@@ -1,7 +1,7 @@
 {
-  "name": "npm-lib-template",
+  "name": "cloudbase-accesstoken-cache",
   "version": "1.0.0",
-  "description": "npm-lib-template",
+  "description": "cloudbase-accesstoken-cache , use cloudbase database to manager your accesstoken easily !",
   "main": "dist/index.js",
   "module": "dist/index.es.js",
   "types": "dist/types/index.d.ts",
@@ -12,7 +12,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/sonofmagic/npm-lib-template.git"
+    "url": "git+https://github.com/sonofmagic/cloudbase-accesstoken-cache.git"
   },
   "files": [
     "dist"
@@ -21,13 +21,21 @@
     "access": "public",
     "registry": "https://registry.npmjs.org"
   },
-  "keywords": [],
+  "keywords": [
+    "cloudbase",
+    "微信",
+    "公众号",
+    "小程序",
+    "accesstoken",
+    "缓存",
+    "过期"
+  ],
   "author": "SonOfMagic <qq1324318532@gmail.com>",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/sonofmagic/npm-lib-template/issues"
+    "url": "https://github.com/sonofmagic/cloudbase-accesstoken-cache/issues"
   },
-  "homepage": "https://github.com/sonofmagic/npm-lib-template#readme",
+  "homepage": "https://github.com/sonofmagic/cloudbase-accesstoken-cache#readme",
   "devDependencies": {
     "@cloudbase/node-sdk": "^2.7.1",
     "@rollup/plugin-alias": "^3.1.8",

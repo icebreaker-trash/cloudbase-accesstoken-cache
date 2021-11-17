@@ -1,6 +1,6 @@
 {
   "name": "cloudbase-accesstoken-cache",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "cloudbase-accesstoken-cache , use cloudbase database to manager your accesstoken easily !",
   "main": "dist/index.js",
   "module": "dist/index.es.js",

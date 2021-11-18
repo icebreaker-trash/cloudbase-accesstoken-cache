@@ -51,4 +51,18 @@ const token = await manager.getAccessToken()
 
 都可以通过 `.d.ts` 定义感知出来
 
+有 `2` 种策略，通过构造方法的 `memoize` 配置项开启 ,`default: true`
+
+开启后会在内存中同步缓存，相当于一套 2 级缓存机制,顺序为:
+
+1. 内存缓存
+2. Cloudbase DB 数据库缓存
+3. 重新获取
+
+不开启的策略为:
+
+1. Cloudbase DB 数据库缓存
+2. 重新获取
+
 如果你有更复杂的需求，请提 [`issue`](https://github.com/sonofmagic/cloudbase-accesstoken-cache/issues)
+

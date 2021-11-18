@@ -12,7 +12,10 @@ describe('SingleCacheManager', () => {
     expect(env).toBeTruthy()
     expect(appid).toBeTruthy()
     expect(secret).toBeTruthy()
+  })
 
+  test('[Strategy] memoize', async () => {
+    const { secretId, secretKey, env, appid, secret } = process.env
     const app = init({
       secretId,
       secretKey,
@@ -23,6 +26,27 @@ describe('SingleCacheManager', () => {
       appid: appid as string,
       db,
       secret: secret as string
+    })
+    const token = await manager.getAccessToken()
+    expect(token).toBeTruthy()
+
+    const token2 = await manager.getAccessToken()
+    expect(token).toBe(token2)
+  })
+
+  test('[Strategy] remote', async () => {
+    const { secretId, secretKey, env, appid, secret } = process.env
+    const app = init({
+      secretId,
+      secretKey,
+      env
+    })
+    const db = app.database()
+    const manager = new SingleCacheManager({
+      appid: appid as string,
+      db,
+      secret: secret as string,
+      memoize: false
     })
     const token = await manager.getAccessToken()
     expect(token).toBeTruthy()

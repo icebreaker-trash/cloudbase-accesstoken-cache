@@ -1,6 +1,5 @@
 import type { Database } from '@cloudbase/node-sdk'
-import axios from 'axios'
-
+import http from 'http'
 export interface ISingleCacheManagerConfig {
   /**
    * 小程序或者公众号的appid
@@ -34,6 +33,11 @@ export interface ISingleCacheManagerInnerCache {
   accessToken: string
   expiresIn: number
 }
+
+export interface IRemoteTokenResponse {
+  access_token: string
+  expires_in: number
+}
 export class SingleCacheManager {
   private appid: string
   private secret: string
@@ -52,11 +56,52 @@ export class SingleCacheManager {
     this.memoize = config.memoize ?? true
   }
 
-  private async getAccessTokenByHttp () {
-    const { data } = await axios.get(
-      `https://api.weixin.qq.com/cgi-bin/token?grant_type=client_credential&appid=${this.appid}&secret=${this.secret}`
-    )
-    return data
+  private getAccessTokenByHttp (): Promise<IRemoteTokenResponse> {
+    return new Promise((resolve, reject) => {
+      http
+        .get(
+          `https://api.weixin.qq.com/cgi-bin/token?grant_type=client_credential&appid=${this.appid}&secret=${this.secret}`,
+          (res) => {
+            const { statusCode } = res
+            const contentType =
+              res.headers['content-type'] ?? 'application/json'
+
+            let error
+            if (statusCode !== 200) {
+              error = new Error(
+                'Request Failed.\n' + `Status Code: ${statusCode}`
+              )
+            } else if (!/^application\/json/.test(contentType)) {
+              error = new Error(
+                'Invalid content-type.\n' +
+                  `Expected application/json but received ${contentType}`
+              )
+            }
+            if (error) {
+              console.error(error.message)
+              res.resume()
+              return
+            }
+
+            res.setEncoding('utf8')
+            let rawData = ''
+            res.on('data', (chunk) => {
+              rawData += chunk
+            })
+            res.on('end', () => {
+              try {
+                const parsedData = JSON.parse(rawData)
+                resolve(parsedData)
+              } catch (e) {
+                reject(e)
+              }
+            })
+          }
+        )
+        .on('error', (e) => {
+          reject(e)
+        })
+    })
   }
 
   /**

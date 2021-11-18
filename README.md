@@ -1,6 +1,6 @@
 # cloudbase-accesstoken-cache
 
-> 轻松快捷的管理您的 Access Token
+> 微信公众号和小程序的 Access Token 小助手， 轻松快捷的管理您的Token策略
 
 ## Usage
 

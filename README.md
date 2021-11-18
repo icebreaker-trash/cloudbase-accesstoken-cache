@@ -4,6 +4,8 @@
 
 ## Usage
 
+### ESM / Typescript
+
 ```ts
 import { init } from '@cloudbase/node-sdk'
 import { SingleCacheManager } from 'cloudbase-accesstoken-cache'
@@ -24,6 +26,7 @@ const manager = new SingleCacheManager({
 const token = await manager.getAccessToken()
 ```
 
+### CJS (commonjs)
 
 ```js
 const tcb = require('@cloudbase/node-sdk')

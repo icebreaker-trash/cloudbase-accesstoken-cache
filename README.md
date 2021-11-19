@@ -22,7 +22,7 @@ const manager = new SingleCacheManager({
   db,
   secret
 })
-// 这就是你的 token 带了一套缓存机制
+// 获取 token (有缓存机制)
 const token = await manager.getAccessToken()
 ```
 
@@ -44,15 +44,15 @@ const manager = new SingleCacheManager({
   db,
   secret
 })
-// 这就是你的 token 带了一套缓存机制
+// 获取 token (有缓存机制)
 const token = await manager.getAccessToken()
 ```
 
-## Options
+## Class
 
 ### SingleCacheManager
 
-都可以通过 `.d.ts` 定义感知出来
+`options` 可以通过 `.d.ts` 定义感知出来
 
 有 `2` 种策略，通过构造方法的 `memoize` 配置项开启 ,`default: true`
 

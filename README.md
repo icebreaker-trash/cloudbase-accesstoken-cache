@@ -2,6 +2,15 @@
 
 > 微信公众号和小程序的 Access Token 小助手， 轻松快捷的管理您的Token策略
 
+
+## Install
+
+```bash
+yarn add cloudbase-accesstoken-cache
+# or
+npm i cloudbase-accesstoken-cache
+```
+
 ## Usage
 
 ### ESM / Typescript
